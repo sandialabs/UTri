@@ -1,0 +1,47 @@
+This is UTri, the Sandia Unstructured Triangle Tabular Interpolation
+Package. UTri is distributed under the BSD License, see LICENSE.
+
+Build Requirements
+------------------
+
+CMake (version 2.8.6 or later recommended)
+C and FORTRAN compilers
+MPI
+NetCDF (version 4 specific features are not used)
+
+Usage
+-----
+
+The main UTri interface is defined in the "utri_eos_mig.h" header
+file. For details of usage please refer to the documentation in that
+header. If using MPI, then one must also include the "utri_eos_mpi.h"
+header. The basic work flow is:
+
+Setup:
+*) get a handle to the library by calling one of:
+
+     utri_eos_handle_open()
+     utri_eos_handle_init_mpi( MPI_Comm )
+     utri_eos_handle_init_mpi_fortran( MPI_Fint * )
+
+   Note that one can call the MPI versions passing MPI_COMM_NULL, which
+   is equivalent to the non-MPI version. The second MPI version is meant
+   to be called when one has a FORTRAN MPI communicator.
+
+*) call utri_eos_init specifying the desired table for interpolation
+
+Evaluation:
+*) call utri_eos_XXdrv to evaluate the table at a desired location
+   XX is px when using a pressure based table
+   XX is either rt or re when using a density based table
+*) check the error status of the utri_eos_XXdrv call
+*) if desired, call utri_eos_status to get an informational string
+
+Tear down:
+*) call utri_eos_delete
+*) call utri_eos_handle_close
+
+Contact Information
+-------------------
+
+For any questions related to this software, email jhcarpe@sandia.gov

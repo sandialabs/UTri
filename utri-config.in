@@ -1,0 +1,34 @@
+# ############################################################################ #
+#
+# UTRI CMake Configuration File
+#
+#  Usage:
+#
+#    find_package(UTRI HINTS <install prefix>
+#   
+#  Defines
+#      utri IMPORTED library target
+#      UTRI_INCLUDE_DIRS   include file directory
+#      UTRI_LIBRARY        utri library (target)
+#      UTRI_DATA_DIR       utri data file install directory
+#      UTRI_DATA_FILES     utri data files
+# ############################################################################ #
+
+# Define the directory this file resides in, need this for the targets file
+get_filename_component(SELF_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+
+# Include the targets file
+include(${SELF_DIR}/utri-targets.cmake)
+
+# Include directory
+set(UTRI_INCLUDE_DIRS 
+         @CMAKE_INSTALL_PREFIX@/include
+	 @NETCDF_INCLUDE_DIRS@)
+
+# Library (target name, full path defined in utri-targets.cmake)
+set(UTRI_LIBRARY   utri)
+
+# Data files
+set(UTRI_DATA_DIR   @CMAKE_INSTALL_PREFIX@/share/data)
+set(UTRI_DATA_FILES @UTRI_DATA_FILES@)
+
